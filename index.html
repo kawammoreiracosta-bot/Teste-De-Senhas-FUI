@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quanto tempo leva para quebrarem a sua senha?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h1>Quanto tempo leva para quebrarem a sua senha?</h1>
+<p class="lead">
+    Projeto de Fundamentos de Informática (CEFET-MG, Divinópolis).
+</p>
+
+<h2>Objetivo:</h2>
+<p>
+    Criar um guia de segurança digital que ajude minha família e meus amigos
+    a proteger suas contas, medindo o que cada medida custa e o quanto ela protege.
+</p></header>
+<main>
+<section class="tool" aria-labelledby="t1">
+<h2 id="t1" style="margin-top:0">Teste uma senha de exemplo</h2>
+<p class="mute">Não digite sua senha real. Tudo acontece no seu navegador, nada é enviado.</p>
+<label for="pw" class="sans">Senha de teste (até 30 caracteres)</label>
+<input type="text" id="pw" value="senha123" maxlength="30" autocomplete="off" spellcheck="false">
+<p class="big" id="time"></p>
+<p class="mute" id="bits"></p>
+<p class="mute" style="font-size:.85rem">Tempo máximo para testar todas as combinações, supondo senha aleatória e hash bcrypt roubado, a 138.675 tentativas por segundo (medição da Hive Systems, 2026). Senhas comuns caem quase de imediato.</p>
+<ul class="rules" id="rules"></ul>
+<p id="verdict" class="sans"></p>
+</section>
+
+<h2>Como o computador enxerga o que você digitou</h2>
+<p>O computador só guarda números. Cada caractere vira um número, e cada número vira uma sequência de bits. Os quatro primeiros caracteres da sua senha de teste ficam assim:</p>
+<div class="scroll"><pre id="bin"></pre></div>
+<p class="mute">Em ASCII, a letra “a” é 97, que em binário é 01100001 e em hexadecimal é 61. Cada bit a mais dobra o número de combinações, e é por isso que senhas maiores crescem tão rápido em segurança.</p>
+
+<h2>De onde vem a segurança digital</h2>
+<ol class="tl">
+<li><strong>Cerca de 50 a.C.</strong> A cifra de César troca cada letra por outra, três posições adiante.</li>
+<li><strong>1940</strong> A máquina Enigma cifra mensagens militares, e a equipe de Alan Turing trabalha para quebrá-la.</li>
+<li><strong>1945</strong> O ENIAC, um dos primeiros computadores eletrônicos, inicia a era da computação digital.</li>
+<li><strong>1971</strong> O programa Creeper se espalha pela ARPANET e é considerado um dos primeiros vírus de rede.</li>
+<li><strong>2018</strong> O Brasil aprova a Lei Geral de Proteção de Dados (LGPD).</li>
+</ol>
+
+<h2>A cor do projeto, em números</h2>
+<p>Uma cor na tela são três números de 0 a 255 (vermelho, verde e azul). Cada número cabe em 8 bits e pode ser escrito em hexadecimal.</p>
+<div class="grid" id="colors"></div>
+
+<h2>Um aviso sonoro, em bytes</h2>
+<p>Um som digital é uma lista de medidas da onda, feitas muitas vezes por segundo. Veja quanto espaço um alerta de segurança ocupa sem compressão:</p>
+<div class="tool">
+<div class="row">
+<label>Duração (s)<input type="number" id="dur" value="5" min="1" max="60"></label>
+<label>Taxa (Hz)<input type="number" id="hz" value="44100"></label>
+<label>Bits por amostra<input type="number" id="bps" value="16"></label>
+</div>
+<p class="big" id="audio"></p>
+<p class="mute" id="audio2"></p>
+</div>
+
+<h2>Orçamento: quanto custa se proteger</h2>
+<p>Dois itens para quem quer sair do básico: um gerenciador de senhas (cobrado em dólar) e uma chave física de segurança comprada em parcelas.</p>
+<div class="tool">
+<div class="row">
+<label>Dólar (R$)<input type="number" id="usd" value="5.50" step="0.01"></label>
+<label>Gerenciador (US$/mês)<input type="number" id="mgr" value="3" step="0.5"></label>
+<label>Chave física (US$)<input type="number" id="key" value="50"></label>
+<label>Vida útil da chave (anos)<input type="number" id="life" value="3"></label>
+<label>Parcelas<input type="number" id="n" value="3"></label>
+<label>Juros (% ao mês)<input type="number" id="juros" value="2" step="0.1"></label>
+</div>
+<div class="scroll"><table id="cost"></table></div>
+<p class="mute">Atualize a cotação do dólar antes de apresentar. A depreciação é linear: o valor da chave dividido pelos anos de uso.</p>
+</div>
+
+<h2>Checklist de proteção</h2>
+<p>Cada medida tem uma categoria. Os filtros combinam condições com E: só aparece o que for gratuito E ainda não estiver feito.</p>
+<div class="tool">
+<label><input type="checkbox" id="fgrat"> Só gratuitas</label>
+<label><input type="checkbox" id="fpend"> Só as que ainda não fiz</label>
+<div class="scroll"><table id="list"></table></div>
+<p class="sans"><strong>Dados em CSV</strong> (copie e cole em um arquivo .csv para usar no Datawrapper):</p>
+<pre id="csv"></pre>
+</div>
+
+<h2>Infográfico: tamanho da senha × tempo estimado para quebrar</h2>
+<p>Escolha o tamanho da senha para comparar as estimativas da tabela. As barras usam escala logarítmica, pois os tempos vão de segundos a períodos extremamente longos.</p>
+<div class="tool password-chart" aria-labelledby="chart-title">
+  <h3 id="chart-title">Compare os tipos de senha</h3>
+  <div class="chart-controls">
+    <label for="passwordLength">Tamanho da senha
+      <select id="passwordLength"></select>
+    </label>
+  </div>
+  <div id="passwordChart" class="password-bars" aria-live="polite"><p class="mute">Carregando dados do CSV…</p></div>
+  <p id="passwordChartNote" class="mute chart-note">Fonte: dados_senha.csv, calculado com a taxa medida pela Hive Systems (2026).</p>
+</div>
+<section class="tool grafico-extra">
+<h3>Comparação visual: todas as composições</h3>
+<p>Gráfico gerado a partir de dados_senha.csv. Cada linha é um tipo de senha, e o eixo vertical é logarítmico: cada marca é muito maior que a anterior.</p>
+<img src="img/infografico_tempo_quebra.png" alt="Gráfico do tempo máximo para quebrar senhas aleatórias, por tamanho e composição, em escala logarítmica" class="imagem-grafico">
+<p class="mute grafico-legenda">Fonte: cálculo próprio com os parâmetros da Hive Systems (2026): bcrypt de custo 10 e 138.675 tentativas por segundo. NESKEY, C. <em>Are your passwords in the green</em>. Hive Systems, 14 jul. 2026. <a href="https://www.hivesystems.com/blog/are-your-passwords-in-the-green" target="_blank" rel="noopener noreferrer">hivesystems.com</a>.</p>
+</section>
+<h2>Como o projeto foi feito</h2>
+<p>A tabela resume a matriz de articulação. O detalhamento, com as evidências, está no memorial em LaTeX.</p>
+<div class="scroll"><table>
+<tr><th>Bloco</th><th>Onde aparece neste projeto</th></tr>
+<tr><td>História</td><td>Linha do tempo da segurança digital</td></tr>
+<tr><td>Binário e bases</td><td>Senha convertida em binário e hexadecimal</td></tr>
+<tr><td>Hardware</td><td>[Descrever o computador usado e como ele afetou o trabalho]</td></tr>
+<tr><td>Luz</td><td>Paleta de cores em RGB, binário e hexadecimal</td></tr>
+<tr><td>Áudio</td><td>Cálculo do tamanho do aviso sonoro</td></tr>
+<tr><td>LaTeX</td><td>Memorial com figuras, tabelas, referências e descrição do problema</td></tr>
+<tr><td>Planilhas</td><td>Orçamento com dólar, depreciação e juros</td></tr>
+<tr><td>Operadores lógicos</td><td>Regras da senha e filtros do checklist</td></tr>
+<tr><td>CSV</td><td>Dados do checklist exportados em CSV</td></tr>
+<tr><td>Infográfico</td><td>Gráfico de tamanho da senha e tempo de quebra</td></tr>
+<tr><td>Planejamento</td><td>Mapa mental, Trello e notas no Obsidian</td></tr>
+</table></div>
+
+<h2>Uso de IA no projeto</h2>
+
+<p>A IA foi utilizada para:</p>
+
+<ul>
+    <li>Construção do site, incluindo estilização, formatação e funcionamento dos programas em JavaScript.</li>
+    <li>Realização de correções e melhorias básicas.</li>
+    <li>Cálculo da tabela de tempos de quebra e geração do gráfico, a partir dos parâmetros publicados pela Hive Systems.</li>
+</ul>
+</main>
+<footer>Fundamentos de Informática, 1º, CEFET-MG Campus Divinópolis /  Do Aluno: Kawam Moreira Costa.</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

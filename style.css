@@ -1,0 +1,468 @@
+
+/* =========================================
+   1. VARIÁVEIS E CONFIGURAÇÕES GERAIS
+========================================= */
+
+:root {
+    --bg: #EEF2F6;
+    --ink: #12202F;
+    --mute: #4A5B6C;
+    --line: #C5D0DB;
+    --card: #FFFFFF;
+    --accent: #0B7A75;
+    --warn: #B8400C;
+
+    color-scheme: light;
+    box-sizing: border-box;
+
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #0F1A24;
+        --ink: #E6EDF3;
+        --mute: #9FB0C0;
+        --line: #2B3B4A;
+        --card: #15232F;
+        --accent: #4FD1C5;
+        --warn: #FB923C;
+
+        color-scheme: dark;
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #0F1A24;
+    --ink: #E6EDF3;
+    --mute: #9FB0C0;
+    --line: #2B3B4A;
+    --card: #15232F;
+
+    --accent: #4FD1C5;
+    --warn: #FB923C;
+
+    color-scheme: dark;
+}
+
+
+/* =========================================
+   2. RESET E ESTRUTURA PRINCIPAL
+========================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+
+    font: 400 1.05rem/1.65 "Source Serif 4", Georgia, serif;
+}
+
+main,
+header,
+footer {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+header {
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+}
+
+footer {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+
+    color: var(--mute);
+    font-size: .9rem;
+}
+
+
+/* =========================================
+   3. TIPOGRAFIA E TÍTULOS
+========================================= */
+
+h1,
+h2,
+h3,
+.sans {
+    font-family: "Bricolage Grotesque", "Trebuchet MS", Arial, sans-serif;
+}
+
+h1 {
+    margin: 0 0 .6rem;
+
+    font-size: clamp(2.1rem, 6.5vw, 3.6rem);
+    line-height: 1.05;
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+h2 {
+    margin: 2.2rem 0 .5rem;
+
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+
+h3 {
+    margin: .2rem 0 1rem;
+}
+
+p {
+    margin: .4rem 0 .7rem;
+}
+
+.lead {
+    max-width: 60ch;
+    font-size: 1.2rem;
+}
+
+.mute {
+    color: var(--mute);
+}
+
+
+/* =========================================
+   4. CARTÕES E ÁREAS DE CONTEÚDO
+========================================= */
+
+.tool {
+    margin: 1rem 0;
+    padding: 1.2rem;
+
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   5. CAMPOS DE ENTRADA E FORMULÁRIOS
+========================================= */
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: .7rem .8rem;
+
+    font: inherit;
+    color: var(--ink);
+
+    background: var(--bg);
+    border: 2px solid var(--line);
+    border-radius: 6px;
+}
+
+#pw {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1.4rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    margin: .3rem 0;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: .8rem;
+}
+
+.row label {
+    display: block;
+    font-size: .9rem;
+}
+
+
+/* =========================================
+   6. ACESSIBILIDADE E FOCO
+========================================= */
+
+input:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+
+/* =========================================
+   7. RESULTADOS E INDICADORES
+========================================= */
+
+.big {
+    margin: .8rem 0 .2rem;
+
+    font: 800 clamp(1.8rem, 6vw, 2.8rem)/1.1
+        "Bricolage Grotesque", sans-serif;
+}
+
+.rules {
+    display: grid;
+    gap: .3rem;
+
+    margin: .8rem 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.rules li::before {
+    content: "✗ ";
+    color: var(--warn);
+    font-weight: 700;
+}
+
+.rules li.ok::before {
+    content: "✓ ";
+    color: var(--accent);
+}
+
+
+/* =========================================
+   8. CÓDIGO, BINÁRIO E HEXADECIMAL
+========================================= */
+
+code,
+pre {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .9rem;
+}
+
+pre {
+    margin: .6rem 0;
+    padding: .8rem;
+
+    overflow-x: auto;
+
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+
+    line-height: 1.4;
+    white-space: pre;
+    tab-size: 4;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: .8rem;
+}
+
+.sw {
+    min-height: 92px;
+    padding: .8rem;
+
+    border-radius: 8px;
+
+    font: 600 .85rem/1.4 ui-monospace, monospace;
+}
+
+
+
+.scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .95rem;
+}
+
+th,
+td {
+    padding: .5rem .6rem;
+
+    border-bottom: 1px solid var(--line);
+
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+
+
+
+
+ol.tl {
+    padding-left: 1.2rem;
+}
+
+ol.tl li {
+    margin: .4rem 0;
+}
+
+
+
+
+.password-chart h3 {
+    margin: .2rem 0 1rem;
+
+    font: 700 1.2rem "Bricolage Grotesque", sans-serif;
+}
+
+.chart-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+
+    margin: 1rem 0 1.4rem;
+}
+
+.chart-controls label {
+    display: block;
+
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: .9rem;
+}
+
+.chart-controls select,
+.chart-controls input[type="file"] {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin-top: .4rem;
+    padding: .65rem;
+
+    font: inherit;
+    color: var(--ink);
+
+    background: var(--bg);
+    border: 2px solid var(--line);
+    border-radius: 6px;
+}
+
+.password-bars {
+    display: grid;
+    gap: 1rem;
+}
+
+.password-bar-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+
+    margin-bottom: .35rem;
+}
+
+.password-bar-name {
+    font: 600 .95rem "Bricolage Grotesque", sans-serif;
+}
+
+.password-bar-value {
+    color: var(--mute);
+    font-size: .9rem;
+    text-align: right;
+}
+
+.password-track {
+    height: 14px;
+
+    overflow: hidden;
+
+    background: var(--line);
+    border-radius: 99px;
+}
+
+.password-fill {
+    height: 100%;
+    min-width: 3px;
+
+    background: linear-gradient(90deg, var(--accent), #4D9BE8);
+    border-radius: 99px;
+
+    transition: width .3s ease;
+}
+
+.chart-note {
+    margin-top: 1rem;
+    font-size: .86rem;
+}
+
+
+
+
+@media (max-width: 520px) {
+
+    .password-bar-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: .15rem;
+    }
+
+    .password-bar-value {
+        text-align: left;
+    }
+}
+
+
+
+
+svg text {
+    fill: var(--ink);
+    font: 12px "Bricolage Grotesque", sans-serif;
+}
+
+#bin {
+    font-family: "Courier New", monospace;
+    font-size: .9rem;
+    line-height: 1.5;
+    white-space: pre;
+    font-variant-ligatures: none;
+    letter-spacing: 0;
+    overflow-x: auto;
+}
+
+
+.grafico-extra {
+    text-align: center;
+}
+
+.grafico-link {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    margin: 25px auto;
+}
+
+.imagem-grafico {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+}
+
+.grafico-legenda {
+    font-size: .85rem;
+    text-align: center;
+}

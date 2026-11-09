@@ -1,0 +1,9 @@
+Tamanho,Apenas Números,Apenas Letras Minúsculas,Maiúsculas e Minúsculas,Letras e Números,Com Símbolos
+4 caracteres,0.07211,3.295,52.72,106.6,173.1
+6 caracteres,7.211,2228,1.426e+05,4.096e+05,8.484e+05
+8 caracteres,721.1,1.506e+06,3.855e+08,1.574e+09,4.157e+09
+10 caracteres,7.211e+04,1.018e+09,1.042e+12,6.052e+12,2.037e+13
+12 caracteres,7.211e+06,6.881e+11,2.819e+15,2.326e+16,9.981e+16
+14 caracteres,7.211e+08,4.652e+14,7.622e+18,8.943e+19,4.891e+20
+16 caracteres,7.211e+10,3.145e+17,2.061e+22,3.438e+23,2.396e+24
+18 caracteres,7.211e+12,2.126e+20,5.573e+25,1.321e+27,1.174e+28
