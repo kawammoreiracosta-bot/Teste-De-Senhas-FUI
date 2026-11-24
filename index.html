@@ -4,138 +4,269 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Quanto tempo leva para quebrarem a sua senha?</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap">
+<meta name="description" content="Teste uma senha de exemplo e veja quanto tempo um atacante levaria para descobri-la. Projeto de Fundamentos de Informática, CEFET-MG Divinópolis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-<h1>Quanto tempo leva para quebrarem a sua senha?</h1>
-<p class="lead">
-    Projeto de Fundamentos de Informática (CEFET-MG, Divinópolis).
-</p>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
 
-<h2>Objetivo:</h2>
-<p>
-    
-    Criar um guia de segurança digital que ajude minha família e meus amigos
-    a proteger suas contas, medindo o que cada medida custa e o quanto ela protege.
-</p></header>
-<main>
-<section class="tool" aria-labelledby="t1">
-<h2 id="t1" style="margin-top:0">Teste uma senha de exemplo</h2>
-<p class="mute">Não digite sua senha real. Tudo acontece no seu navegador, nada é enviado.</p>
-<label for="pw" class="sans">Senha de teste (até 30 caracteres)</label>
-<input type="text" id="pw" value="senha123" maxlength="30" autocomplete="off" spellcheck="false">
-<p class="big" id="time"></p>
-<p class="mute" id="bits"></p>
-<p class="mute" style="font-size:.85rem">Tempo máximo para testar todas as combinações, supondo senha aleatória e hash bcrypt roubado, a 138.675 tentativas por segundo (medição da Hive Systems, 2026). Senhas comuns caem quase de imediato.</p>
-<ul class="rules" id="rules"></ul>
-<p id="verdict" class="sans"></p>
-</section>
-
-<h2>Como o computador enxerga o que você digitou</h2>
-<p>O computador só guarda números. Cada caractere vira um número, e cada número vira uma sequência de bits. Os quatro primeiros caracteres da sua senha de teste ficam assim:</p>
-<div class="scroll"><pre id="bin"></pre></div>
-<p class="mute">Em ASCII, a letra “a” é 97, que em binário é 01100001 e em hexadecimal é 61. Cada bit a mais dobra o número de combinações, e é por isso que senhas maiores crescem tão rápido em segurança.</p>
-
-<h2>De onde vem a segurança digital</h2>
-<ol class="tl">
-<li><strong>Cerca de 50 a.C.</strong> A cifra de César troca cada letra por outra, três posições adiante.</li>
-<li><strong>1940</strong> A máquina Enigma cifra mensagens militares, e a equipe de Alan Turing trabalha para quebrá-la.</li>
-<li><strong>1945</strong> O ENIAC, um dos primeiros computadores eletrônicos, inicia a era da computação digital.</li>
-<li><strong>1971</strong> O programa Creeper se espalha pela ARPANET e é considerado um dos primeiros vírus de rede.</li>
-<li><strong>2018</strong> O Brasil aprova a Lei Geral de Proteção de Dados (LGPD).</li>
-</ol>
-
-<h2>A cor do projeto, em números</h2>
-<p>Uma cor na tela são três números de 0 a 255 (vermelho, verde e azul). Cada número cabe em 8 bits e pode ser escrito em hexadecimal.</p>
-<div class="grid" id="colors"></div>
-
-<h2>Um aviso sonoro, em bytes</h2>
-<p>Um som digital é uma lista de medidas da onda, feitas muitas vezes por segundo. Veja quanto espaço um alerta de segurança ocupa sem compressão:</p>
-<div class="tool">
-<div class="row">
-<label>Duração (s)<input type="number" id="dur" value="5" min="1" max="60"></label>
-<label>Taxa (Hz)<input type="number" id="hz" value="44100"></label>
-<label>Bits por amostra<input type="number" id="bps" value="16"></label>
-</div>
-<p class="big" id="audio"></p>
-<p class="mute" id="audio2"></p>
-</div>
-
-<h2>Orçamento: quanto custa se proteger</h2>
-<p>Dois itens para quem quer sair do básico: um gerenciador de senhas (cobrado em dólar) e uma chave física de segurança comprada em parcelas.</p>
-<div class="tool">
-<div class="row">
-<label>Dólar (R$)<input type="number" id="usd" value="5.50" step="0.01"></label>
-<label>Gerenciador (US$/mês)<input type="number" id="mgr" value="3" step="0.5"></label>
-<label>Chave física (US$)<input type="number" id="key" value="50"></label>
-<label>Vida útil da chave (anos)<input type="number" id="life" value="3"></label>
-<label>Parcelas<input type="number" id="n" value="3"></label>
-<label>Juros (% ao mês)<input type="number" id="juros" value="2" step="0.1"></label>
-</div>
-<div class="scroll"><table id="cost"></table></div>
-<p class="mute">Atualize a cotação do dólar antes de apresentar. A depreciação é linear: o valor da chave dividido pelos anos de uso.</p>
-</div>
-
-<h2>Checklist de proteção</h2>
-<p>Cada medida tem uma categoria. Os filtros combinam condições com E: só aparece o que for gratuito E ainda não estiver feito.</p>
-<div class="tool">
-<label><input type="checkbox" id="fgrat"> Só gratuitas</label>
-<label><input type="checkbox" id="fpend"> Só as que ainda não fiz</label>
-<div class="scroll"><table id="list"></table></div>
-<p class="sans"><strong>Dados em CSV</strong> (copie e cole em um arquivo .csv para usar no Datawrapper):</p>
-<pre id="csv"></pre>
-</div>
-
-<h2>Infográfico: tamanho da senha × tempo estimado para quebrar</h2>
-<p>Escolha o tamanho da senha para comparar as estimativas da tabela. As barras usam escala logarítmica, pois os tempos vão de segundos a períodos extremamente longos.</p>
-<div class="tool password-chart" aria-labelledby="chart-title">
-  <h3 id="chart-title">Compare os tipos de senha</h3>
-  <div class="chart-controls">
-    <label for="passwordLength">Tamanho da senha
-      <select id="passwordLength"></select>
-    </label>
+<nav class="topbar" aria-label="Seções do site">
+  <div class="wrap topbar-in">
+    <a class="brand" href="#teste">Teste de senhas</a>
+    <ul>
+      <li><a href="#bits">Bits</a></li>
+      <li><a href="#historia">História</a></li>
+      <li><a href="#cores">Cores e som</a></li>
+      <li><a href="#custos">Custos</a></li>
+      <li><a href="#checklist">Checklist</a></li>
+      <li><a href="#grafico">Gráficos</a></li>
+      <li><a href="#projeto">Projeto</a></li>
+    </ul>
   </div>
-  <div id="passwordChart" class="password-bars" aria-live="polite"><p class="mute">Carregando dados do CSV…</p></div>
-  <p id="passwordChartNote" class="mute chart-note">Fonte: dados_senha.csv, calculado com a taxa medida pela Hive Systems (2026).</p>
-</div>
-<section class="tool grafico-extra">
-<h3>Comparação visual: todas as composições</h3>
-<p>Gráfico gerado a partir de dados_senha.csv. Cada linha é um tipo de senha, e o eixo vertical é logarítmico: cada marca é muito maior que a anterior.</p>
-<img src="grafico.png" alt="Gráfico do tempo máximo para quebrar senhas aleatórias, por tamanho e composição, em escala logarítmica" class="imagem-grafico">
-<p class="mute grafico-legenda">Fonte: cálculo próprio com os parâmetros da Hive Systems (2026): bcrypt de custo 10 e 138.675 tentativas por segundo. NESKEY, C. <em>Are your passwords in the green</em>. Hive Systems, 14 jul. 2026. <a href="https://www.hivesystems.com/blog/are-your-passwords-in-the-green" target="_blank" rel="noopener noreferrer">hivesystems.com</a>.</p>
-</section>
-<h2>Como o projeto foi feito</h2>
-<p>A tabela resume a matriz de articulação. O detalhamento, com as evidências, está no memorial em LaTeX.</p>
-<div class="scroll"><table>
-<tr><th>Bloco</th><th>Onde aparece neste projeto</th></tr>
-<tr><td>História</td><td>Linha do tempo da segurança digital</td></tr>
-<tr><td>Binário e bases</td><td>Senha convertida em binário e hexadecimal</td></tr>
-<tr><td>Hardware</td><td>[Descrever o computador usado e como ele afetou o trabalho]</td></tr>
-<tr><td>Luz</td><td>Paleta de cores em RGB, binário e hexadecimal</td></tr>
-<tr><td>Áudio</td><td>Cálculo do tamanho do aviso sonoro</td></tr>
-<tr><td>LaTeX</td><td>Memorial com figuras, tabelas, referências e descrição do problema</td></tr>
-<tr><td>Planilhas</td><td>Orçamento com dólar, depreciação e juros</td></tr>
-<tr><td>Operadores lógicos</td><td>Regras da senha e filtros do checklist</td></tr>
-<tr><td>CSV</td><td>Dados do checklist exportados em CSV</td></tr>
-<tr><td>Infográfico</td><td>Gráfico de tamanho da senha e tempo de quebra</td></tr>
-<tr><td>Planejamento</td><td>Mapa mental, Trello e notas no Obsidian</td></tr>
-</table></div>
+</nav>
 
-<h2>Uso de IA no projeto</h2>
+<header class="hero" id="teste">
+  <div class="wrap hero-in">
+    <p class="hero-kicker">Fundamentos de Informática, CEFET-MG, Campus Divinópolis</p>
+    <h1>Quanto tempo leva para quebrarem a sua senha?</h1>
+    <p class="hero-lead">Digite uma senha de exemplo e veja, na régua abaixo, onde ela cai: de segundos a quintilhões de anos. Nada que você digita sai do seu navegador.</p>
+  </div>
 
-<p>A IA foi utilizada para:</p>
+  <div class="tester-wrap">
+    <div class="wrap">
+      <section class="tester" aria-labelledby="t1">
+        <h2 id="t1" class="sr-only">Teste de senha</h2>
 
-<ul>
-    <li>Construção do site, incluindo estilização, formatação e funcionamento dos programas em JavaScript.</li>
-    <li>Realização de correções e melhorias básicas.</li>
-    <li>Cálculo da tabela de tempos de quebra e geração do gráfico, a partir dos parâmetros publicados pela Hive Systems.</li>
-</ul>
+        <div class="tester-top">
+          <label for="pw" class="tester-label">Senha de teste</label>
+          <span class="count" id="count" aria-live="off">0 / 30</span>
+        </div>
+        <input type="text" id="pw" value="senha123" maxlength="30" autocomplete="off" spellcheck="false" aria-describedby="aviso">
+        <p class="warning" id="aviso">Não use sua senha real. Use uma parecida, só para testar.</p>
+
+        <div class="result">
+          <p class="result-label">Tempo máximo para quebrar</p>
+          <p class="big" id="time" aria-live="polite"></p>
+          <p class="mute small" id="bits"></p>
+        </div>
+
+        <div class="ruler" id="ruler" role="img" aria-label="Régua logarítmica do tempo de quebra">
+          <div class="ruler-track"><span class="ruler-marker" id="marker"></span></div>
+          <ol class="ruler-ticks" aria-hidden="true">
+            <li style="--p:0%">1 s</li>
+            <li style="--p:12.7%">1 hora</li>
+            <li style="--p:26.8%">1 ano</li>
+            <li style="--p:48.2%">1 milhão<br>de anos</li>
+            <li style="--p:69.6%">1 trilhão<br>de anos</li>
+            <li style="--p:91.1%">1 quintilhão<br>de anos</li>
+          </ol>
+        </div>
+        <p class="mute small ruler-note">A régua é logarítmica: cada marca vale muito mais que a anterior.</p>
+
+        <div class="verdict-row">
+          <p id="verdict" class="verdict"></p>
+          <ul class="rules" id="rules"></ul>
+        </div>
+
+        <p class="mute small basis">Cálculo para senha aleatória com hash bcrypt roubado, a 138.675 tentativas por segundo (medição da Hive Systems, 2026). Senhas comuns caem quase de imediato.</p>
+      </section>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo" class="wrap">
+
+  <section class="sec" id="objetivo">
+    <div class="sec-head">
+      <h2>Objetivo</h2>
+    </div>
+    <div class="sec-body">
+      <p class="statement">Criar um guia de segurança digital que ajude minha família e meus amigos a proteger suas contas, medindo o que cada medida custa e o quanto ela protege.</p>
+      <p class="mute">Este site é a mídia do meu projeto pessoal de Fundamentos de Informática. Cada ferramenta abaixo usa um conteúdo da disciplina para responder a uma pergunta prática sobre senhas.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="bits">
+    <div class="sec-head">
+      <h2>Como o computador enxerga o que você digitou</h2>
+      <p class="mute">Lógica binária e bases numéricas.</p>
+    </div>
+    <div class="sec-body">
+      <p>O computador só guarda números. Cada caractere vira um número, e cada número vira uma sequência de bits. Os quatro primeiros caracteres da sua senha de teste ficam assim:</p>
+      <div class="scroll"><pre id="bin" class="terminal"></pre></div>
+      <p class="mute">Em ASCII, a letra “a” é 97, que em binário é 01100001 e em hexadecimal é 61. Cada bit a mais dobra o número de combinações, e é por isso que senhas maiores crescem tão rápido em segurança.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="historia">
+    <div class="sec-head">
+      <h2>De onde vem a segurança digital</h2>
+      <p class="mute">Breve história dos computadores.</p>
+    </div>
+    <div class="sec-body">
+      <ol class="tl">
+        <li><time>Cerca de 50 a.C.</time><p>A cifra de César troca cada letra por outra, três posições adiante.</p></li>
+        <li><time>1940</time><p>A máquina Enigma cifra mensagens militares, e a equipe de Alan Turing trabalha para quebrá-la.</p></li>
+        <li><time>1945</time><p>O ENIAC, um dos primeiros computadores eletrônicos, inicia a era da computação digital.</p></li>
+        <li><time>1971</time><p>O programa Creeper se espalha pela ARPANET e é considerado um dos primeiros vírus de rede.</p></li>
+        <li><time>2018</time><p>O Brasil aprova a Lei Geral de Proteção de Dados (LGPD).</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="cores">
+    <div class="sec-head">
+      <h2>Cores e som, em números</h2>
+      <p class="mute">Representação digital de luz e de áudio.</p>
+    </div>
+    <div class="sec-body">
+      <h3>A cor do projeto</h3>
+      <p>Uma cor na tela são três números de 0 a 255 (vermelho, verde e azul). Cada número cabe em 8 bits e pode ser escrito em hexadecimal.</p>
+      <div class="grid" id="colors"></div>
+
+      <h3 class="gap">Um aviso sonoro, em bytes</h3>
+      <p>Um som digital é uma lista de medidas da onda, feitas muitas vezes por segundo. Veja quanto espaço um alerta de segurança ocupa sem compressão:</p>
+      <div class="tool">
+        <div class="fields">
+          <label class="field"><span>Duração (s)</span><input type="number" id="dur" value="5" min="1" max="60"></label>
+          <label class="field"><span>Taxa (Hz)</span><input type="number" id="hz" value="44100"></label>
+          <label class="field"><span>Bits por amostra</span><input type="number" id="bps" value="16"></label>
+        </div>
+        <p class="big medium" id="audio"></p>
+        <p class="mute small" id="audio2"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="custos">
+    <div class="sec-head">
+      <h2>Orçamento: quanto custa se proteger</h2>
+      <p class="mute">Planilhas: moeda estrangeira, depreciação e juros.</p>
+    </div>
+    <div class="sec-body">
+      <p>Dois itens para quem quer sair do básico: um gerenciador de senhas, cobrado em dólar, e uma chave física de segurança, comprada em parcelas.</p>
+      <div class="tool">
+        <div class="fields">
+          <label class="field"><span>Dólar (R$)</span><input type="number" id="usd" value="5.50" step="0.01"></label>
+          <label class="field"><span>Gerenciador (US$/mês)</span><input type="number" id="mgr" value="3" step="0.5"></label>
+          <label class="field"><span>Chave física (US$)</span><input type="number" id="key" value="50"></label>
+          <label class="field"><span>Vida útil da chave (anos)</span><input type="number" id="life" value="3"></label>
+          <label class="field"><span>Parcelas</span><input type="number" id="n" value="3"></label>
+          <label class="field"><span>Juros (% ao mês)</span><input type="number" id="juros" value="2" step="0.1"></label>
+        </div>
+        <div class="scroll"><table id="cost" class="data"></table></div>
+      </div>
+      <p class="mute small">Os valores iniciais são exemplos e podem ser editados. A depreciação é linear: o valor da chave dividido pelos anos de uso.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="checklist">
+    <div class="sec-head">
+      <h2>Checklist de proteção</h2>
+      <p class="mute">Dados categóricos, operadores lógicos e arquivos CSV.</p>
+    </div>
+    <div class="sec-body">
+      <p>Cada medida tem uma categoria. Os filtros combinam condições com E: só aparece o que for gratuito E ainda não estiver feito.</p>
+      <div class="tool">
+        <div class="switches">
+          <label class="switch"><input type="checkbox" id="fgrat" class="toggle"><span>Só gratuitas</span></label>
+          <label class="switch"><input type="checkbox" id="fpend" class="toggle"><span>Só as que ainda não fiz</span></label>
+        </div>
+        <div class="scroll"><table id="list" class="data"></table></div>
+      </div>
+
+      <div class="csv-head">
+        <h3>Dados em CSV</h3>
+        <button type="button" class="btn" id="copycsv">Copiar CSV</button>
+      </div>
+      <p class="mute small">Copie e cole em um arquivo .csv para usar no Datawrapper.</p>
+      <pre id="csv" class="terminal"></pre>
+    </div>
+  </section>
+
+  <section class="sec" id="grafico">
+    <div class="sec-head">
+      <h2>Tamanho da senha e tempo para quebrar</h2>
+      <p class="mute">Infográfico.</p>
+    </div>
+    <div class="sec-body">
+      <p>Escolha um tamanho para comparar os cinco tipos de senha. As barras usam escala logarítmica, pois os tempos vão de segundos a períodos extremamente longos.</p>
+      <div class="tool password-chart" aria-labelledby="chart-title">
+        <div class="chart-top">
+          <h3 id="chart-title">Compare os tipos de senha</h3>
+          <div class="chart-controls">
+            <label for="passwordLength">Tamanho da senha
+              <select id="passwordLength"></select>
+            </label>
+          </div>
+        </div>
+        <div id="passwordChart" class="password-bars" aria-live="polite"><p class="mute">Carregando dados…</p></div>
+        <p id="passwordChartNote" class="mute chart-note">Fonte: dados_senha.csv, calculado com a taxa medida pela Hive Systems (2026).</p>
+      </div>
+      <div class="tool linechart" aria-labelledby="line-title">
+        <div class="chart-top">
+          <h3 id="line-title">Todos os tamanhos de uma vez</h3>
+          <p class="mute small hint">Passe o mouse, toque ou use as setas do teclado. Clique em um tamanho para destacá-lo nas barras acima. Ligue e desligue os tipos de senha na legenda.</p>
+        </div>
+
+        <div class="legend" id="lineLegend" role="group" aria-label="Tipos de senha exibidos no gráfico"></div>
+
+        <div class="line-wrap" id="lineWrap" tabindex="0" role="group" aria-label="Gráfico de linhas do tempo de quebra por tamanho de senha. Use as setas esquerda e direita para escolher o tamanho e Enter para fixar.">
+          <svg id="lineSvg" role="img" aria-label="Gráfico de linhas, escala logarítmica"></svg>
+          <div class="tip" id="lineTip" hidden></div>
+        </div>
+
+        <p class="insight" id="lineInsight" aria-live="polite"></p>
+
+        <noscript><img src="img/infografico_tempo_quebra.png" alt="Gráfico do tempo máximo para quebrar senhas aleatórias, por tamanho e composição, em escala logarítmica" style="width:100%;height:auto"></noscript>
+
+        <p class="mute chart-note">Eixo vertical logarítmico. Dados de dados_senha.csv, calculados com os parâmetros da Hive Systems (2026): bcrypt de custo 10 e 138.675 tentativas por segundo. NESKEY, C. <em>Are your passwords in the green</em>. Hive Systems, 14 jul. 2026. <a href="https://www.hivesystems.com/blog/are-your-passwords-in-the-green" target="_blank" rel="noopener noreferrer">hivesystems.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="projeto">
+    <div class="sec-head">
+      <h2>Como o projeto foi feito</h2>
+      <p class="mute">A matriz resume a articulação com a disciplina. O detalhamento e as evidências estão no memorial em LaTeX.</p>
+    </div>
+    <div class="sec-body">
+      <div class="scroll"><table class="data matrix">
+        <tr><th>Bloco</th><th>Onde aparece neste projeto</th></tr>
+        <tr><td>História</td><td>Linha do tempo da segurança digital</td></tr>
+        <tr><td>Binário e bases</td><td>Senha convertida em binário e hexadecimal</td></tr>
+        <tr><td>Hardware</td><td>Computador pessoal do aluno; o site é leve e roda em qualquer máquina. Os tempos de quebra vêm de uma frota de 16 placas de vídeo medida pela Hive Systems</td></tr>
+        <tr><td>Luz</td><td>Paleta de cores em RGB, binário e hexadecimal</td></tr>
+        <tr><td>Áudio</td><td>Cálculo do tamanho do aviso sonoro</td></tr>
+        <tr><td>LaTeX</td><td>Memorial com figuras, tabelas, referências e descrição do problema</td></tr>
+        <tr><td>Planilhas</td><td>Orçamento com dólar, depreciação e juros</td></tr>
+        <tr><td>Operadores lógicos</td><td>Regras da senha e filtros do checklist</td></tr>
+        <tr><td>CSV</td><td>Dados do checklist e dos tempos de quebra em CSV</td></tr>
+        <tr><td>Infográfico</td><td>Gráfico de tamanho da senha e tempo de quebra</td></tr>
+        <tr><td>Planejamento</td><td>Mapa mental, Trello e notas no Obsidian</td></tr>
+      </table></div>
+
+      <h3 class="gap">Uso de IA no projeto</h3>
+      <p>A IA foi utilizada para:</p>
+      <ul class="plain">
+        <li>Construção do site, incluindo estilização, formatação e funcionamento dos programas em JavaScript.</li>
+        <li>Realização de correções e melhorias básicas.</li>
+        <li>Cálculo da tabela de tempos de quebra e geração do gráfico, a partir dos parâmetros publicados pela Hive Systems.</li>
+      </ul>
+    </div>
+  </section>
 </main>
-<footer>Fundamentos de Informática, 1º, CEFET-MG Campus Divinópolis /  Do Aluno: Kawam Moreira Costa.</footer>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p><strong>Fundamentos de Informática, 1º ano, CEFET-MG Campus Divinópolis.</strong><br>Aluno: Kawam Moreira Costa.</p>
+    <p class="small">Os tempos são estimativas didáticas para senhas aleatórias e hash roubado. Não garantem a segurança de nenhuma senha real.</p>
+  </div>
+</footer>
 
 <script src="script.js"></script>
 </body>
-    
 </html>
